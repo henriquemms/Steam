@@ -32,6 +32,9 @@ public class GameController {
 		
 		Game game = gameDto.transformDtoGameWithoytId();
 		
+		
+		//validação de categoria existente e ativa 
+		
 		this.gameService.create(game);
 		return game;
 	}

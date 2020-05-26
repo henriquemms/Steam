@@ -3,14 +3,17 @@ package br.com.xibamba.steam.service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import br.com.xibamba.steam.model.entity.Category;
 import br.com.xibamba.steam.model.entity.Developer;
 import br.com.xibamba.steam.model.entity.Game;
+import br.com.xibamba.steam.repository.CategoryRepository;
 import br.com.xibamba.steam.repository.DeveloperRepository;
 import br.com.xibamba.steam.repository.GameRepository;
 
@@ -22,6 +25,9 @@ public class GameService {
 	
 	@Autowired
 	private DeveloperRepository developerRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 	
 	public List<Game> listAll(){
 		
@@ -40,6 +46,7 @@ public class GameService {
 		}
 		
 		validDeveloper(game.getDeveloper());
+		validateCategoryList(game.getCategories());
 		
 		game.getDataControl().markCreated(new Date());
 		this.gameRepository.save(game);
@@ -53,6 +60,7 @@ public class GameService {
 		}
 		
 		validDeveloper(game.getDeveloper());
+		validateCategoryList(game.getCategories());
 		
 		Optional<Game> currentGame = this.gameRepository.findById(game.getId());
 		
@@ -104,4 +112,30 @@ public class GameService {
 		return true;
 	}
 
+	//validação de categoria existente e ativa
+	public Boolean validateCategoryList(Set<Category> categories) {
+		
+		if(categories == null) {
+			throw new ServiceException("Não é possível salvar, pois não foi informada a categoria do jogo.");
+		}
+		
+		for(Category category:categories) {
+			Optional<Category> categoryOpitional = this.categoryRepository.findById(category.getId());
+			
+			if(!categoryOpitional.isPresent()) {
+				throw new ServiceException("Categoria de código '" + category.getId() + "' informada para o Game não existe. Impossível salvar o jogo.");
+		}
+			
+			if(categoryOpitional.get().getDataControl().getDeleted()) {
+				throw new ServiceException("Categoria não está ativa:" + category.getId() + ": " + categoryOpitional.get().getName());
+			}
+		
+		
+		}
+		
+		
+		return true;
+	}
+
+	
 }
