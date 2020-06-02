@@ -1,0 +1,26 @@
+docker build -t henriquemms/steam-api:nrversao .
+
+
+//inicia o container e configura que o conteiner seja iniciado sempre a máquina iniciar 
+docker run --name steam-api --restart always -p 8080:8080 -d henriquemms/steam-api:latest
+
+
+//executa o hello world no docker para ver se está funcinando
+docker run hello-world
+
+
+//configura o docker para iniciar junto com o ligar da máquina
+sudo chkconfig docker on
+
+
+//criar uma cópia da imagem com a tag indicada
+docker tag steam-api henriquemms/steam-api:latest
+
+//envia a imagem para nuvem
+docker push henriquemms/steam-api:latest
+
+//lista as imagens do docher
+docker images
+
+//remove o container
+docker container rm henriquemms/steam-api:latest

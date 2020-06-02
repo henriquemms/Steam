@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: br.com.xibamba.steam.SteamApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.424 s - in br.com.xibamba.steam.SteamApplicationTests
