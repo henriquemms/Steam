@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="steam_API_back/.mvn/wrapper"/>
+	<classpathentry kind="src" path="steam_API_back/src/main/java"/>
+	<classpathentry kind="src" path="steam_API_back/src/test/java"/>
+	<classpathentry kind="lib" path="steam_API_back/target/steam-api.jar"/>
+	<classpathentry kind="output" path="steam_API_back/target/classes"/>
+</classpath>
